@@ -107,7 +107,7 @@ const Portfolio = () => {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pt-20">
+      <section id="home" className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 pt-20">
         <div className="container py-20">
           <div className="flex flex-col lg:flex-row items-center justify-between">
             {/* Text Content */}
@@ -139,7 +139,7 @@ const Portfolio = () => {
 
             {/* Image/Graphics */}
             <div className="lg:w-1/2 relative">
-              <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center shadow-2xl">
+              <div className="w-80 h-80 mx-auto bg-linear-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center shadow-2xl">
                 <div className="text-white text-6xl">
                   👨‍💻
                 </div>
@@ -218,7 +218,7 @@ const Portfolio = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
               <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="h-48 bg-gradient-to-r from-primary-400 to-primary-600 flex items-center justify-center">
+                <div className="h-48 bg-linear-to-r from-primary-400 to-primary-600 flex items-center justify-center">
                   <div className="text-white text-4xl">💻</div>
                 </div>
                 <div className="p-6">
@@ -257,7 +257,7 @@ const Portfolio = () => {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div 
-                    className="bg-gradient-to-r from-primary-400 to-primary-600 h-3 rounded-full transition-all duration-1000"
+                    className="bg-linear-to-r from-primary-400 to-primary-600 h-3 rounded-full transition-all duration-1000"
                     style={{ width: `${skill.level}%` }}
                   ></div>
                 </div>
