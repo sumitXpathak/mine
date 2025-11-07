@@ -1,8 +1,9 @@
+ 
 // components/Portfolio.jsx
 'use client';
 import { useState, useEffect } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { contactApi } from './lib/contactApi';
+import { contactApi } from '../lib/contactApi'; 
+
 
 // ContactForm Component
 const ContactForm = () => {
@@ -13,41 +14,37 @@ const ContactForm = () => {
     message: ''
   });
   const [formStatus, setFormStatus] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear error when user starts typing
+    if (errorMessage) {
+      setErrorMessage('');
+      setFormStatus('');
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('sending');
+    setErrorMessage('');
 
     try {
-      // Replace with your actual API call
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        if (result.success) {
-          setFormStatus('success');
-          setFormData({ name: '', email: '', subject: '', message: '' });
-        } else {
-          setFormStatus('error');
-        }
+      const result = await contactApi.submitContact(formData);
+      if (result.success) {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
         setFormStatus('error');
+        setErrorMessage('Failed to submit contact form. Please try again.');
       }
     } catch (error) {
       setFormStatus('error');
+      setErrorMessage(error.message || 'Sorry, there was an error sending your message. Please try again.');
       console.error('Contact form error:', error);
     }
   };
@@ -118,7 +115,7 @@ const ContactForm = () => {
       
       {formStatus === 'error' && (
         <div className="p-3 bg-red-100 text-red-700 rounded-lg">
-          Sorry, there was an error sending your message. Please try again.
+          {errorMessage || 'Sorry, there was an error sending your message. Please try again.'}
         </div>
       )}
     </form>

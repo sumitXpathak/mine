@@ -1,6 +1,6 @@
 import os
-from motor.motor_asyncio import AsyncIOMotorClient
-from dotenv import load_dotenv
+from motor.motor_asyncio import AsyncIOMotorClient # type: ignore
+from dotenv import load_dotenv # type: ignore
 
 load_dotenv()
 
@@ -17,12 +17,12 @@ class Database:
         print("Connected to MongoDB")
     
     async def disconnect(self):
-        if self.client:
+        if self.client is not None:
             self.client.close()
             print("Disconnected from MongoDB")
     
     def get_collection(self, collection_name):
-        if self.database:
+        if self.database is not None:
             return self.database[collection_name]
         raise Exception("Database not connected")
 

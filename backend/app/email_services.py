@@ -89,4 +89,4 @@ class EmailService:
             return False
 
 # Create global email service instance
-email_service = EmailService()
+email_service = EmailService() 
