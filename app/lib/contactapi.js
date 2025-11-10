@@ -1,35 +1,36 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000/api/v1';
 
 export const contactApi = {
-  async submitContact(formData) {
+  async submit(formData) {
     try {
-      const response = await fetch(`${API_BASE_URL}/contact`, {
+      const resp = await fetch(`${API_BASE_URL}/contact`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      
-      if (!response.ok) {
-        let errorMessage = 'Failed to submit contact form';
+
+      if (!resp.ok) {
+        let msg = 'Failed to submit contact form';
         try {
-          const error = await response.json();
-          errorMessage = error.detail || error.message || errorMessage;
+          const err = await resp.json();
+          msg = err.detail || err.message || msg;
         } catch {
-          errorMessage = `Server error: ${response.status} ${response.statusText}`;
+          msg = `Server error: ${resp.status} ${resp.statusText}`;
         }
-        throw new Error(errorMessage);
+        throw new Error(msg);
       }
-      
-      return response.json();
-    } catch (error) {
-      // Handle network errors (backend not running, CORS, etc.)
-      if (error instanceof TypeError && error.message === 'Failed to fetch') {
-        throw new Error('Unable to reach the server. Please make sure the backend server is running on port 8000.');
+
+      return resp.json();
+    } catch (err) {
+      if (err instanceof TypeError && /Failed to fetch/i.test(err.message)) {
+        throw new Error(
+          'Unable to reach the server. Ensure the backend is running and CORS is configured.'
+        );
       }
-      // Re-throw other errors
-      throw error;
+      throw err;
     }
   },
 };
+
+export default contactApi;
