@@ -2,7 +2,7 @@
 // components/Portfolio.jsx
 'use client';
 import { useState, useEffect } from 'react';
-import { contactApi } from '@/lib/contactApi';
+import { contactApi } from '../lib/contactApi';
 
 
 
